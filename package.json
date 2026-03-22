@@ -1,0 +1,22 @@
+{
+  "name": "real-time-chat-aplication",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm i --prefix ./backend && npm i --prefix ./frontend && npm run build --prefix ./frontend",
+    "start": "npm run start --prefix ./backend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MadushaThathsara/chat_app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/MadushaThathsara/chat_app/issues"
+  },
+  "homepage": "https://github.com/MadushaThathsara/chat_app#readme"
+}
