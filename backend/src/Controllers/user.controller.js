@@ -1,3 +1,5 @@
+const User = require("../Models/user.model")
+
 const login = (req, res) => {
    res.send("Login");
 }
@@ -6,8 +8,35 @@ const logout = (req, res) => {
     res.send("Logout");
 }
 
-const signup = (req, res) => {
-    res.send("Signup");
+const signup = async (req, res) => {
+    const {fullName, email, password} = req.body;
+    
+    try{
+        if(!fullName || !email || !password){
+            return res.status(400).json({message: "All fields are required"});
+        }
+        if(password.length < 6){
+            return res.status(400).json({message: "Password must be at least 6 characters long"});
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(!emailRegex.test(email)){
+            return res.status(400).json({message: "Invalid email address"});
+        }
+
+        const user = await User.findOne({email});
+        if(user){
+            return res.status(400).json({message: "User already exists"});
+        } 
+        
+        const newUser = new User({fullName, email, password})
+        await newUser.save();
+        await newUser.generateAuthToken(res);
+        res.status(201).json({_id: newUser._id, fullName: newUser.fullName, email: newUser.email, profilePic: newUser.profilePic});
+
+    }catch(error){
+        console.error("Error in signup:", error);
+        res.status(500).json({message: "Internal server error"});   
+    }
 }
 
 module.exports = { login, logout, signup };
