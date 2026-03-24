@@ -1,12 +1,26 @@
 const User = require("../Models/user.model")
 const sendVerificationEmail = require("../Email/emailHandlers");
 
-const login = (req, res) => {
-   res.send("Login");
+const login = async (req, res) => {
+  const {email, password} = req.body;
+
+  try{
+    if(!email || !password){
+      return res.status(400).json({message: "All fields are required"});
+    }
+    
+    const user = await User.findByCredentials(email, password);
+    await user.generateAuthToken(res);
+    res.status(200).json({_id: user._id, fullName: user.fullName, email: user.email, profilePic: user.profilePic});
+  }catch(error){
+    console.error("Error in login:", error);
+    res.status(500).json({message: "Internal server error"});   
+  }
 }
 
 const logout = (req, res) => {
-    res.send("Logout");
+    res.clearCookie("jwt");
+    res.status(200).json({message: "Logout successfully"});
 }
 
 const signup = async (req, res) => {
