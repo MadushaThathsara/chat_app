@@ -22,7 +22,8 @@ if(env.NODE_ENV === "production"){
     });
 }   
 
-const PORT = env.PORT;
+
+const PORT = Number(env.PORT) || 5000;
 connectDB();
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
