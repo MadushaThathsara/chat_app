@@ -1,4 +1,5 @@
 const User = require("../Models/user.model")
+const sendVerificationEmail = require("../Email/emailHandlers");
 
 const login = (req, res) => {
    res.send("Login");
@@ -29,9 +30,15 @@ const signup = async (req, res) => {
         } 
         
         const newUser = new User({fullName, email, password})
-        await newUser.save();
+        const saveUser = await newUser.save();
         await newUser.generateAuthToken(res);
         res.status(201).json({_id: newUser._id, fullName: newUser.fullName, email: newUser.email, profilePic: newUser.profilePic});
+
+        try{
+            await sendVerificationEmail(saveUser.email, saveUser.fullName);
+        }catch(error){
+            console.error("Error sending verification email:", error);
+        }
 
     }catch(error){
         console.error("Error in signup:", error);

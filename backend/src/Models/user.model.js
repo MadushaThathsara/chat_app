@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+const env = require("../lib/env");  
+
+
 const userSchema = new mongoose.Schema({
     fullName: {
         type: String,
@@ -49,7 +52,7 @@ userSchema.statics.findByCredentials = async (email, password) => {
 
 userSchema.methods.generateAuthToken = async function (res) {
   const user = this; 
-  const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET, {expiresIn: "7d"});
+  const token = jwt.sign({ _id: user._id.toString() }, env.JWT_SECRET, {expiresIn: "7d"});
 //   user.tokens = user.tokens.concat({ token });
 //   await user.save();
 
@@ -57,7 +60,7 @@ userSchema.methods.generateAuthToken = async function (res) {
         maxAge: 7 * 24 * 60 * 60 * 1000,    // 7 days
         httpOnly: true, // prevent client side js access
         sameSite: "strict", // prevent CSRF attacks
-        secure: process.env.NODE_ENV !== "development" // only send over https in production
+        secure: env.NODE_ENV !== "development" // only send over https in production
     })
 
     return token;

@@ -1,12 +1,10 @@
 const express = require("express");
-const dotenv = require("dotenv");
 const path = require("path");
-
-dotenv.config();
 
 const userRoutes = require("./Routes/user.route");
 const messageRoutes = require("./Routes/message.route");
 const connectDB = require("./Database/mongoose");
+const env = require("./lib/env");
 
 const app = express();
 
@@ -16,7 +14,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/message", messageRoutes);
 
 // make ready for deployment
-if(process.env.NODE_ENV === "production"){
+if(env.NODE_ENV === "production"){
     app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
     app.get("*path", (_, res) => {
@@ -24,7 +22,7 @@ if(process.env.NODE_ENV === "production"){
     });
 }   
 
-const PORT = process.env.PORT || 5000;
+const PORT = env.PORT;
 connectDB();
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
