@@ -1,5 +1,6 @@
 const User = require("../Models/user.model")
 const sendVerificationEmail = require("../Email/emailHandlers");
+const cloudinary = require("../lib/cloudinary");
 
 const login = async (req, res) => {
   const {email, password} = req.body;
@@ -67,9 +68,9 @@ try{
         return res.status(400).json({message: "Profile picture is required"});
     }
 
-    const uploaredResponse = await cloudinary.uploader.upload(profilePic);
+    const uploaredResponse = await cloudinary.uploader.upload(profilePic, { resource_type: "image" });
 
-    const updatedUser = await User.findByIdAndUpdate(req.user._id, {profilePic: uploaredResponse.secure_url}, {new: true});
+    const updatedUser = await User.findByIdAndUpdate(req.user._id, {profilePic: uploaredResponse.secure_url}, {new: true}).select("-password");
 
     res.status(200).json(updatedUser);
 }catch(error){

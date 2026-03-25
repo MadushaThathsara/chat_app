@@ -5,7 +5,7 @@ const auth = require("../Middleware/auth.middleware");
 const router = express.Router();
 
 router.post("/login", userController.login);
-router.post("/logout", auth, userController.logout);
+router.post("/logout", userController.logout);
 router.post("/signup", userController.signup);
 router.put("/update-profile", auth, userController.updateProfile);
 
