@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
-const env = require("../lib/env");  
+import {env} from "../lib/env.js";  
 
 
 const userSchema = new mongoose.Schema({
@@ -66,6 +66,5 @@ userSchema.methods.generateAuthToken = async function (res) {
     return token;
 };
 
-const User = mongoose.model("User", userSchema);
-
-module.exports = User;  
+export const User = mongoose.model("User", userSchema);
+ 

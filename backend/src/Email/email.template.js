@@ -1,4 +1,4 @@
-const emailTemplate = (name, openURl) => {
+export const emailTemplate = (name, openURl) => {
     return `
   <!DOCTYPE html>
   <html lang="en">
@@ -48,5 +48,3 @@ const emailTemplate = (name, openURl) => {
   </html>
     `
 }
-
-module.exports = emailTemplate;

@@ -1,5 +1,4 @@
-const getMessage = (req, res) => {
+export const getMessage = (req, res) => {
     res.send("Message");
 }
 
-module.exports = { getMessage };    

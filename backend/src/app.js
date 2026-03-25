@@ -1,11 +1,11 @@
-const express = require("express");
-const path = require("path");
-const cookieParser = require("cookie-parser");
+import express from "express";
+import path from "path";
+import cookieParser from "cookie-parser";
 
-const userRoutes = require("./Routes/user.route");
-const messageRoutes = require("./Routes/message.route");
-const connectDB = require("./Database/mongoose");
-const env = require("./lib/env");
+import userRoutes from "./Routes/user.route.js";
+import messageRoutes from "./Routes/message.route.js";
+import {connectDB} from "./Database/mongoose.js";
+import {env} from "./lib/env.js";
 
 const app = express();
 

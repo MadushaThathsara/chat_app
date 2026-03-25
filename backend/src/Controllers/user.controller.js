@@ -1,8 +1,8 @@
-const User = require("../Models/user.model")
-const sendVerificationEmail = require("../Email/emailHandlers");
-const cloudinary = require("../lib/cloudinary");
+import {User} from "../Models/user.model.js"
+import {sendVerificationEmail} from "../Email/emailHandlers.js";
+import cloudinary from "../lib/cloudinary.js";
 
-const login = async (req, res) => {
+export const login = async (req, res) => {
   const {email, password} = req.body;
 
   try{
@@ -19,12 +19,12 @@ const login = async (req, res) => {
   }
 }
 
-const logout = (req, res) => {
+export const logout = (req, res) => {
     res.clearCookie("jwt");
     res.status(200).json({message: "Logout successfully"});
 }
 
-const signup = async (req, res) => {
+export const signup = async (req, res) => {
     const {fullName, email, password} = req.body;
     
     try{
@@ -61,7 +61,7 @@ const signup = async (req, res) => {
     }
 }
 
-const updateProfile = async (req, res) => {
+export const updateProfile = async (req, res) => {
 try{
     const {profilePic} = req.body;
     if(!profilePic){
@@ -78,5 +78,3 @@ try{
     res.status(500).json({message: "Internal server error"});   
 }
 }
-
-module.exports = { login, logout, signup, updateProfile };
