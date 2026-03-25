@@ -17,7 +17,10 @@ const env = {
     RESEND_API_KEY: requireEnv("RESEND_API_KEY"),
     EMAIL_FROM: requireEnv("EMAIL_FROM"),
     EMAIL_FROM_NAME: process.env.EMAIL_FROM_NAME || "Messenger",
-    CLIENT_URL: requireEnv("CLIENT_URL")    
+    CLIENT_URL: requireEnv("CLIENT_URL"),
+    CLOUDINARY_CLOUD_NAME: requireEnv("CLOUDINARY_CLOUD_NAME"),
+    CLOUDINARY_API_KEY: requireEnv("CLOUDINARY_API_KEY"),
+    CLOUDINARY_API_SECRET: requireEnv("CLOUDINARY_API_SECRET"),    
 }
 
 module.exports = env;
