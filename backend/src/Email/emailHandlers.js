@@ -1,10 +1,10 @@
-const emailTemplate = require("./email.template");
-const { Resend } = require("resend");
-const env = require("../lib/env");
+import {emailTemplate} from "./email.template.js";
+import { Resend } from "resend";
+import {env} from "../lib/env.js";
 
 const resend = new Resend(env.RESEND_API_KEY);
 
-const sendVerificationEmail = async (email, fullName) => {
+export const sendVerificationEmail = async (email, fullName) => {
     
     if (!env.RESEND_API_KEY || !env.EMAIL_FROM || !env.CLIENT_URL) {
         throw new Error("Email service is not configured correctly");
@@ -27,5 +27,3 @@ const sendVerificationEmail = async (email, fullName) => {
 
   return data;
 };
-
-module.exports = sendVerificationEmail;

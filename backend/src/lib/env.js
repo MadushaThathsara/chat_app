@@ -1,4 +1,4 @@
-const dotenv = require("dotenv");
+import dotenv from "dotenv";
 dotenv.config();
 
 const requireEnv = (key) => {
@@ -9,7 +9,7 @@ const requireEnv = (key) => {
     return value;
 };
 
-const env = {
+export const env = {
     PORT: Number(process.env.PORT) || 5000,
     MONGO_URL: requireEnv("MONGO_URL"),
     NODE_ENV: process.env.NODE_ENV || "development",
@@ -20,7 +20,7 @@ const env = {
     CLIENT_URL: requireEnv("CLIENT_URL"),
     CLOUDINARY_CLOUD_NAME: requireEnv("CLOUDINARY_CLOUD_NAME"),
     CLOUDINARY_API_KEY: requireEnv("CLOUDINARY_API_KEY"),
-    CLOUDINARY_API_SECRET: requireEnv("CLOUDINARY_API_SECRET"),    
+    CLOUDINARY_API_SECRET: requireEnv("CLOUDINARY_API_SECRET"),
+    ARCJET_KEY: requireEnv("ARCJET_KEY"),
+    ARCJET_ENV: requireEnv("ARCJET_ENV"),    
 }
-
-module.exports = env;

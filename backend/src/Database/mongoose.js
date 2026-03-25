@@ -1,7 +1,7 @@
-const  mongoose = require("mongoose");
-const env = require("../lib/env");
+import mongoose from "mongoose";
+import {env} from "../lib/env.js";
 
-const connectDB = async () => {
+export const connectDB = async () => {
     try{
         const conn =await mongoose.connect(env.MONGO_URL)
         console.log("Connected to MongoDB", conn.connection.host);
@@ -10,5 +10,3 @@ const connectDB = async () => {
         process.exit(1);
     }
 };
-
-module.exports = connectDB;

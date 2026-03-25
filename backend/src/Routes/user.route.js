@@ -1,14 +1,19 @@
-const express = require("express");
-const userController = require("../Controllers/user.controller");
-const auth = require("../Middleware/auth.middleware");
+import express from "express";
+import {login, logout, signup, updateProfile} from "../Controllers/user.controller.js";
+import {auth} from "../Middleware/auth.middleware.js";
+import {arcjetMiddleware} from "../Middleware/arcjet.middleware.js";
 
 const router = express.Router();
 
-router.post("/login", userController.login);
-router.post("/logout", userController.logout);
-router.post("/signup", userController.signup);
-router.put("/update-profile", auth, userController.updateProfile);
+router.use(arcjetMiddleware);
+
+router.post("/login", login);
+router.post("/logout", logout);
+router.post("/signup", signup);
+router.put("/update-profile", auth, updateProfile);
 
 router.get("/check", auth, (req, res) => res.status(200).json(req.user));
 
-module.exports = router;     
+router.get("/test", arcjetMiddleware, (req, res) => res.status(200).json({message: "Test successful"}));
+    
+export default router;
