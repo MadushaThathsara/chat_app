@@ -12,21 +12,13 @@ const messageSchema = new mongoose.Schema({
         required: true
     },
     text: {
-        type: String
+        type: String,
+        trim: true,
+        maxlength: 2000
     },
     image: {
         type: String
     },
-    video: {
-        type: String
-    },
-    audio: {
-        type: String
-    },
-    file: {
-        type: String
-    },
-    
 },{timestamps: true});
 
 export const Message = mongoose.model("Message", messageSchema);

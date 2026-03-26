@@ -25,9 +25,17 @@ export const getChatPartners = async (req, res) => {
             ]
         }).sort({createdAt: -1});
 
-        const chatPartnerIds = [...new Set(message.map(msg =>
-             msg.senderId.toString() === loggedInUserId.toString() ? msg.receiverId.toString() : msg.senderId.toString() 
-        ))];
+        const seen = new Set();
+        const chatPartnerIds = [];
+        for (const msg of message) {
+            const partnerId = msg.senderId.toString() === loggedInUserId.toString() 
+                ? msg.receiverId.toString() 
+                : msg.senderId.toString();
+            if (!seen.has(partnerId)) {
+                seen.add(partnerId);
+                chatPartnerIds.push(partnerId);
+            }
+        }
 
         const chatPartners = await User.find({_id: {$in: chatPartnerIds}}).select("-password");
         res.status(200).json(chatPartners);
@@ -60,6 +68,19 @@ export const sendMessage = async (req, res) => {
     try{
         const {id:receiverId} = req.params;
         const senderId = req.user._id;
+
+        if (!mongoose.Types.ObjectId.isValid(receiverId)) {
+            return res.status(400).json({message: "Invalid receiver ID"});
+        }
+        
+        const receiverExist = await User.findById(receiverId);
+        if (!receiverExist) {
+            return res.status(404).json({message: "Receiver not found"});
+        }
+        
+        if(senderId.equals(receiverId)){
+            return res.status(400).json({message: "You cannot send message to yourself"});
+        }
 
         const {text, image} = req.body;
 
