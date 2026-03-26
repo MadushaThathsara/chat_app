@@ -14,6 +14,4 @@ router.put("/update-profile", auth, updateProfile);
 
 router.get("/check", auth, (req, res) => res.status(200).json(req.user));
 
-router.get("/test", arcjetMiddleware, (req, res) => res.status(200).json({message: "Test successful"}));
-    
 export default router;
