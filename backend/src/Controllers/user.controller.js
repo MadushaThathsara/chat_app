@@ -15,13 +15,19 @@ export const login = async (req, res) => {
     res.status(200).json({_id: user._id, fullName: user.fullName, email: user.email, profilePic: user.profilePic});
   }catch(error){
     console.error("Error in login:", error);
-    res.status(500).json({message: "Internal server error"});   
+    res.status(400).json({message: error.message});   
   }
 }
 
 export const logout = (req, res) => {
-    res.clearCookie("jwt");
-    res.status(200).json({message: "Logout successfully"});
+    try{
+         res.clearCookie("jwt");
+        res.status(200).json({message: "Logout successfully"});
+    }catch(error){
+        console.error("Error in logout:", error);
+        res.status(500).json({message: "Internal server error"});   
+    }
+
 }
 
 export const signup = async (req, res) => {
@@ -57,7 +63,7 @@ export const signup = async (req, res) => {
 
     }catch(error){
         console.error("Error in signup:", error);
-        res.status(500).json({message: "Internal server error"});   
+        res.status(400).json({message: error.message});   
     }
 }
 
@@ -75,6 +81,6 @@ try{
     res.status(200).json(updatedUser);
 }catch(error){
     console.error("Error in updateProfile:", error);
-    res.status(500).json({message: "Internal server error"});   
+    res.status(400).json({message: error.message});   
 }
 }
