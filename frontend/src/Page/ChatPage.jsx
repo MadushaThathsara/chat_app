@@ -1,5 +1,5 @@
 import React from 'react'
-import { useAuthStore } from '../store/useAuthStore';
+import { useChatStore } from '../store/useChatStore';
 import BorderAnimatedContainer from '../components/BorderAnimatedContainer';
 import ProfileHeader from '../components/ProfileHeader';
 import ActiveTabSwitch from '../components/ActiveTabSwitch';
@@ -9,7 +9,7 @@ import ChatContainer from '../components/ChatContainer';
 import NoConversationPlaceholder from '../components/NoConversationPlaceholder';
 
 export default function ChatPage() {
-  const {activeTab, selectedUser} = useAuthStore();
+  const {activeTab, selectedUser} = useChatStore();
 
   return (
     <div className='relative w-full max-w-6xl md:h-[550px] h-[460px]'>
