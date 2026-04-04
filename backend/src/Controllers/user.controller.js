@@ -76,7 +76,7 @@ try{
 
     const uploaredResponse = await cloudinary.uploader.upload(profilePic, { resource_type: "image" });
 
-    const updatedUser = await User.findByIdAndUpdate(req.user._id, {profilePic: uploaredResponse.secure_url}, {new: true}).select("-password");
+    const updatedUser = await User.findByIdAndUpdate(req.user._id, {profilePic: uploaredResponse.secure_url}, {returnDocument: 'after'}).select("-password");
 
     res.status(200).json(updatedUser);
 }catch(error){
