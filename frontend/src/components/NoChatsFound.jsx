@@ -11,7 +11,7 @@ export default function NoChatsFound() {
         <MessageCircleIcon className="w-7 h-7 text-cyan-400" />
       </div>
       <div>
-        <h4 className="text-slate-200 font-sm mb-1">No conversations yet</h4>
+        <h4 className="text-slate-200 font-medium mb-1">No conversations yet</h4>
         <p className="text-slate-400 text-xs px-6">
           Start a new chat by selecting a contact from the contacts tab
         </p>
