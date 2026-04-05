@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { useAuthStore } from "../store/useAuthStore";
 import { useChatStore } from "../store/useChatStore";
 import { LogOutIcon, VolumeOffIcon, Volume2Icon, Loader } from "lucide-react";
+import {toast} from "react-hot-toast";
 
 const mouseClickSound = new Audio("/sounds/mouse-click.mp3");
 
