@@ -25,7 +25,7 @@ export default function ChatsList() {
           onClick={() => setSelectedUser(chat)}
         >
           <div className="flex items-center gap-3">
-            <div className={`avatar`}>
+            <div className={`avatar avatar-${onlineUsers.includes(chat._id) ? "online" : "offline"}`}>
               <div className="size-9 rounded-full">
                 <img src={chat.profilePic || "/avatar.png"} alt={chat.fullName} />
               </div>
