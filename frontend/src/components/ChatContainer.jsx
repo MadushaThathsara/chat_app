@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect, useRef } from "react";
 import { useChatStore } from '../store/useChatStore';
 import { useAuthStore } from '../store/useAuthStore';
 import ChatHeader from './ChatHeader';
@@ -9,10 +9,22 @@ import MessageInput from './MessageInput.jsx';
 export default function ChatContainer() {
   const {getMessages, selectedUser, messages, isMessagesLoading} = useChatStore();
   const {authUser} = useAuthStore();
+  const messageEndRef = useRef(null);
 
   useEffect(() => {
     getMessages(selectedUser._id);
   }, [selectedUser, getMessages]);
+
+  useEffect(() => {
+  if (messageEndRef.current && messages) {
+
+    const timeoutId = setTimeout(() => {
+      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }, 100); 
+    
+    return () => clearTimeout(timeoutId);
+  }
+}, [messages]);
 
   return (
     <>
@@ -43,7 +55,7 @@ export default function ChatContainer() {
                   <p className={`${message.image ? "mt-2" : ""}`}>{message.text}</p>
                 )}
 
-                <p className="text-xxs mt-1 opacity-75 flex items-center gap-1">
+                <p className="text-xs mt-1 opacity-75 flex items-center gap-1">
                   {new Date(message.createdAt).toLocaleTimeString(undefined, {
                     hour: "2-digit",
                     minute: "2-digit",
@@ -53,12 +65,14 @@ export default function ChatContainer() {
               </div>
             </div>
           ))}
+          {/* 👇 scroll target */}
+          <div ref={messageEndRef} />
         </div>
       )}
-
-      <MessageInput />
-
     </div>
+
+    <MessageInput />
+
     </>
   )
 }

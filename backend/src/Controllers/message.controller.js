@@ -1,6 +1,7 @@
 import cloudinary from "../lib/cloudinary.js";
 import {Message} from "../Models/message.model.js";
 import {User} from "../Models/user.model.js";
+import mongoose from "mongoose";
 
 export const getAllContacts = async (req, res) => {
     try{
