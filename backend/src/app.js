@@ -7,8 +7,9 @@ import userRoutes from "./Routes/user.route.js";
 import messageRoutes from "./Routes/message.route.js";
 import {connectDB} from "./Database/mongoose.js";
 import {env} from "./lib/env.js";
+import {app, httpServer} from "./lib/socket.js";
 
-const app = express();
+// const app = express();
 
 app.use(express.json({limit: "5mb"}))
 app.use(cors({origin: env.CLIENT_URL, credentials: true}));
@@ -29,6 +30,6 @@ if(env.NODE_ENV === "production"){
 
 const PORT = Number(env.PORT) || 5000;
 connectDB();
-app.listen(PORT, () => {
+httpServer.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 });
