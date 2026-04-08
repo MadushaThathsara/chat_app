@@ -86,6 +86,33 @@ export const useChatStore = create((set, get) => ({
             toast.error(error.response?.data?.message || "Failed to send message");
         }
     },
+
+    subscribeToMessages: () => {
+        const { selectedUser, isSoundEnabled } = get();
+        const { socket } = useAuthStore.getState();
+        if (!selectedUser) return;
+
+        socket.on("newMessage", (newMessage) => {
+            const isMessageSentFromSelectedUser = newMessage.senderId === selectedUser._id;
+            if (!isMessageSentFromSelectedUser) return;
+
+            const currentMessages = get().messages;
+            set({ messages: [...currentMessages, newMessage] });
+
+            const currentSoundStatus = get().isSoundEnabled;
+            if (currentSoundStatus) {
+                const notificationSound = new Audio("/sounds/notification.mp3");
+
+                notificationSound.currentTime = 0; // reset to start
+                notificationSound.play().catch((e) => console.log("Audio play failed:", e));
+            }
+        });
+    },
+
+    unsubscribeFromMessages: () => {
+        const { socket } = useAuthStore.getState();
+        socket.off("newMessage");
+    },
 }));
 
     
