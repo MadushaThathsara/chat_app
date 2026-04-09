@@ -9,6 +9,8 @@ import {connectDB} from "./Database/mongoose.js";
 import {env} from "./lib/env.js";
 import {app, httpServer} from "./lib/socket.js";
 
+const __dirname = path.resolve();
+
 // const app = express();
 
 app.use(express.json({limit: "5mb"}))
@@ -20,10 +22,10 @@ app.use("/api/message", messageRoutes);
 
 // make ready for deployment
 if(env.NODE_ENV === "production"){
-    app.use(express.static(path.join(__dirname, "../../frontend/dist")));
+    app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
     app.get("*path", (_, res) => {
-        res.sendFile(path.resolve(__dirname, "../../frontend", "dist", "index.html"));
+        res.sendFile(path.resolve(__dirname, "../frontend", "dist", "index.html"));
     });
 }   
 
