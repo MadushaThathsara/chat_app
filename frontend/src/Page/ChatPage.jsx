@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useChatStore } from '../store/useChatStore';
 import BorderAnimatedContainer from '../components/BorderAnimatedContainer';
 import ProfileHeader from '../components/ProfileHeader';
@@ -10,12 +10,23 @@ import NoConversationPlaceholder from '../components/NoConversationPlaceholder';
 
 export default function ChatPage() {
   const {activeTab, selectedUser} = useChatStore();
+  const [showSidebar, setShowSidebar] = useState(true);
+  
+  useEffect(() => {
+    if (selectedUser) {
+      setShowSidebar(false);
+    } else {
+      setShowSidebar(true);
+    }
+  }, [selectedUser]);
 
   return (
     <div className='relative w-full max-w-6xl md:h-[550px] h-[460px]'>
       <BorderAnimatedContainer>
        {/* LEFT SIDE */}
-        <div className="w-80 bg-slate-800/50 backdrop-blur-sm flex flex-col">
+        <div className={`${showSidebar ? "flex-1" : "w-0"} bg-slate-800/50 backdrop-blur-sm flex flex-col
+          transition-all duration-500 ease-in-out overflow-hidden min-[750px]:w-80 `}
+        >
           <ProfileHeader />
           <ActiveTabSwitch />
 
@@ -26,7 +37,9 @@ export default function ChatPage() {
         </div>
 
         {/* RIGHT SIDE */}
-        <div className="flex-1 flex flex-col bg-slate-900/50 backdrop-blur-sm">
+        <div className={`${showSidebar ? "w-0" : "flex-1"} flex flex-col bg-slate-900/50 backdrop-blur-sm
+          transition-all duration-500 ease-in-out overflow-hidden min-[750px]:flex-1 `}
+        >
           {selectedUser ? <ChatContainer /> : <NoConversationPlaceholder />}
         </div>
       </BorderAnimatedContainer>
