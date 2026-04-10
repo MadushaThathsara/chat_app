@@ -52,16 +52,16 @@ export default function ChatContainer() {
             key={message._id}
             className={`chat ${message.senderId === authUser._id ? "chat-end" : "chat-start"}`}
             >
-              <div className={`chat-bubble ${message.senderId === authUser._id ? "bg-cyan-600 text-white" : "bg-slate-800 text-slate-200"}`}>
+              <div className={`chat-bubble p-2 ${message.senderId === authUser._id ? "bg-cyan-600 text-white" : "bg-slate-800 text-slate-200"}`}>
 
                 {message.image && (
-                  <img src={message.image} alt="Shared Image" className='max-w-[300px] object-cover rounded-lg' />
+                  <img src={message.image} alt="Shared Image" className='md:max-w-[200px] sm:max-w-[150px] max-w-[100px] object-cover rounded-lg' />
                 )}
                 {message.text && (
-                  <p className={`${message.image ? "mt-2" : ""}`}>{message.text}</p>
+                  <p className={`text-xs sm:text-sm  ${message.image ? "mt-2" : ""}`}>{message.text}</p>
                 )}
 
-                <p className="text-xs mt-1 opacity-75 flex items-center gap-1">
+                <p className="text-[8px] sm:text-xs mt-1 opacity-75 flex items-center gap-1">
                   {new Date(message.createdAt).toLocaleTimeString(undefined, {
                     hour: "2-digit",
                     minute: "2-digit",

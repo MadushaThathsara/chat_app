@@ -50,7 +50,7 @@ export default function MessageInput() {
   };
 
   return (
-     <div className="p-4 border-t border-slate-700/50">
+     <div className="p-3 sm:p-4 border-t border-slate-700/50">
       {/* Image preview */}
       {imagePreview && (
         <div className="max-w-3xl mx-auto mb-3 flex items-center">
@@ -71,7 +71,7 @@ export default function MessageInput() {
         </div>
       )}
 
-      <form onSubmit={handleSendMessage} className="max-w-3xl mx-auto flex space-x-4">
+      <form onSubmit={handleSendMessage} className="max-w-3xl mx-auto flex space-x-2 sm:space-x-4">
         <input
           type="text"
           value={text}
@@ -79,7 +79,7 @@ export default function MessageInput() {
             setText(e.target.value);
             isSoundEnabled && playRandomKeyStrokeSound();
           }}
-          className="min-w-[80px] flex-1 bg-slate-800/50 border border-slate-700/50 rounded-lg py-2 px-4"
+          className="min-w-[150px] flex-1 bg-slate-800/50 border border-slate-700/50 rounded-lg px-2 py-2 sm:px-4 text-xs sm:text-sm"
           placeholder="Type your message..."
         />
 
@@ -94,19 +94,19 @@ export default function MessageInput() {
         <button
           type="button"
           onClick={() => fileInputRef.current?.click()}
-          className={`bg-slate-800/50 text-slate-400 hover:text-slate-200 rounded-lg px-4 transition-colors ${
+          className={`bg-slate-800/50 text-slate-400 hover:text-slate-200 rounded-lg px-2 py-2 sm:px-4 sm:py-2 transition-colors ${
             imagePreview ? "text-cyan-500" : ""
           }`}
         >
-          <ImageIcon className="w-4 h-4" />
+          <ImageIcon className="w-3 h-3 sm:w-4 sm:h-4" />
         </button>
 
         <button
           type="submit"
           disabled={!text.trim() && !imagePreview}
-          className="bg-gradient-to-r from-cyan-500 to-cyan-600 text-white rounded-lg px-4 py-2 font-medium hover:from-cyan-600 hover:to-cyan-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-gradient-to-r from-cyan-500 to-cyan-600 text-white rounded-lg px-2 py-2 sm:px-4 sm:py-2 font-medium hover:from-cyan-600 hover:to-cyan-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <SendIcon className="w-4 h-4" />
+          <SendIcon className="w-3 h-3 sm:w-4 sm:h-4" />
         </button>
         
       </form>

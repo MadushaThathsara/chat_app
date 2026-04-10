@@ -21,7 +21,7 @@ export default function ChatPage() {
   }, [selectedUser]);
 
   return (
-    <div className='relative w-full max-w-6xl md:h-[550px] h-[460px]'>
+    <div className='relative w-full max-w-6xl h-[90vh] sm:h-[80vh] min-h-100 sm:min-h-120'>
       <BorderAnimatedContainer>
        {/* LEFT SIDE */}
         <div className={`${showSidebar ? "flex-1" : "w-0"} bg-slate-800/50 backdrop-blur-sm flex flex-col
