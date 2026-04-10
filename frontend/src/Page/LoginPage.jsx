@@ -17,24 +17,24 @@ export default function LoginPage() {
     }
   return (
         <div className='max-w-4xl mx-auto w-full flex items-center justify-center p-4 bg-slate-900'>
-      <div className="relative w-full max-w-6xl md:h-[550px] h-[460px]">
+      <div className="relative w-full max-w-6xl h-[90vh] sm:h-[80vh] min-h-100 sm:min-h-120">
 
       <BorderAnimatedContainer>
 
         <div className='w-full flex flex-col md:flex-row'>
       
           {/* FORM COLUMN - LEFT SIDE */}
-          <div className='md:w-1/2 p-8 flex flex-col items-center justify-center md:border-r border-slate-600/30'>
+          <div className='md:w-1/2 p-6 sm:p-8 h-full  flex flex-col items-center justify-center md:border-r border-slate-600/30'>
 
         {/* HEADING TEXT */}
-        <div className='text-center mb-3'>
-          <MessageCircle className='w-8 h-8 md:w-12 md:h-12 mx-auto text-slate-400 md:mb-4 mb-2'/>
-          <h2 className='md:text-2xl text-xl font-bold text-slate-200 md:mb-1 '>Welcome Back</h2>
-          <p className='text-slate-400'>Login to access to your account</p>
+        <div className='text-center mb-5'>
+          <MessageCircle className='w-7 h-7 sm:w-8 sm:h-8 md:w-12 md:h-12 mx-auto text-slate-400 md:mb-4 mb-2'/>
+          <h2 className='md:text-2xl sm:text-xl text-lg font-bold text-slate-200 md:mb-1 '>Welcome Back</h2>
+          <p className='text-sm sm:text-base text-slate-400'>Login to access to your account</p>
         </div>
 
         {/* FORM */}
-          <form onSubmit={handleSubmit} className="md:space-y-3 space-y-2">
+          <form onSubmit={handleSubmit} className="space-y-3">
 
             {/* EMAIL INPUT */}
             <div>

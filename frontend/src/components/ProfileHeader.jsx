@@ -31,7 +31,7 @@ export default function ProfileHeader() {
   };
 
   return (
-    <div className="p-4 border-b border-slate-700/50">
+    <div className="py-2 px-4 sm:p-4 border-b border-slate-700/50">
       <div className="flex items-center justify-between">
         {/* user info */}
         <div className="flex items-center gap-3">
@@ -39,7 +39,7 @@ export default function ProfileHeader() {
           <div className="avatar avatar-online">
 
            <button 
-           className='size-12 rounded-full overflow-hidden relative group'
+           className='size-10 sm:size-12 rounded-full overflow-hidden relative group'
            onClick={() => fileInputRef.current.click()}>
              <img
                 src={authUser.profilePic || "/avatar.png"}
@@ -50,7 +50,7 @@ export default function ProfileHeader() {
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
                   
                 {isUpdating ? (
-                    <Loader className="text-white size-5 animate-spin mx-auto" />
+                    <Loader className="text-white size-5 animate-spin mx-auto opacity-100" />
                 ) : (
                   <span className="text-white text-xs">change</span>
                 )}
@@ -69,21 +69,21 @@ export default function ProfileHeader() {
 
           {/* user name and username */}
           <div className="flex flex-col max-w-[100px] truncate">
-            <h2 className="text-slate-200 font-medium text-sm ">{authUser.fullName}</h2>
-            <p className="text-slate-400 text-xs">{authUser.email}</p>
+            <h2 className="text-slate-200 font-medium text-[12px] sm:text-sm ">{authUser.fullName}</h2>
+            <p className="text-slate-400 text-[10px] sm:text-xs">{authUser.email}</p>
           </div>
 
         </div>
 
         {/* BUTTONS */}
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-3 sm:gap-4 items-center">
 
           {/* logout button */}
           <button
             onClick={logout}
             className="text-slate-400 hover:text-slate-200 transition-colors"
           >
-            <LogOutIcon className="size-4"/>
+            <LogOutIcon className="size-3 sm:size-4"/>
           </button>
 
           {/* SOUND TOGGLE BTN */}
@@ -97,9 +97,9 @@ export default function ProfileHeader() {
             }}
           >
             {isSoundEnabled ? (
-              <Volume2Icon className="size-4" />
+              <Volume2Icon className="size-3 sm:size-4" />
             ) : (
-              <VolumeOffIcon className="size-4" />
+              <VolumeOffIcon className="size-3 sm:size-4" />
             )}
           </button>
         </div>

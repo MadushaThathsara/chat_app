@@ -7,13 +7,13 @@ export default function ActiveTabSwitch() {
     <div className="tabs bg-transparent p-2 m-1 text-sm flex">
       <button
         onClick={() => setActiveTab("chats")}
-        className={`tab flex-1  rounded  ${activeTab === "chats" ? "bg-cyan-500/20 text-cyan-400" : "text-slate-400"}`}
+        className={`tab flex-1 text-sm sm:text-md  rounded  ${activeTab === "chats" ? "bg-cyan-500/20 text-cyan-400" : "text-slate-400"}`}
       >
         Chats 
       </button>
       <button
         onClick={() => setActiveTab("contacts")}
-        className={`tab flex-1 rounded ${activeTab === "contacts" ? "bg-cyan-500/20 text-cyan-400" : "text-slate-400"}`}
+        className={`tab flex-1 text-sm sm:text-md rounded ${activeTab === "contacts" ? "bg-cyan-500/20 text-cyan-400" : "text-slate-400"}`}
       >
         Contacts
       </button>

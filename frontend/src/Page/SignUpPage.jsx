@@ -19,27 +19,27 @@ export default function SignUpPage() {
   }
   return (
     <div className='max-w-4xl mx-auto w-full flex items-center justify-center p-4 bg-slate-900'>
-      <div className="relative w-full max-w-6xl md:h-[550px] h-[460px]">
+      <div className="relative w-full max-w-6xl h-[90vh] sm:h-[80vh] min-h-120 sm:min-h-130">
 
       <BorderAnimatedContainer>
 
         <div className='w-full flex flex-col md:flex-row'>
       
-          {/* FORM COLUMN - LEFT SIDE */}
-          <div className='md:w-1/2 p-8 flex flex-col items-center justify-center md:border-r border-slate-600/30'>
+        {/* FORM COLUMN - LEFT SIDE */}
+        <div className='md:w-1/2 p-6 sm:p-8 h-full flex flex-col items-center justify-center md:border-r border-slate-600/30'>
 
-        {/* HEADING TEXT */}
-        <div className='text-center mb-3'>
-          <MessageCircle className='w-8 h-8 md:w-12 md:h-12 mx-auto text-slate-400 md:mb-4 mb-2'/>
-          <h2 className='md:text-2xl text-xl font-bold text-slate-200 md:mb-1 '>Create Account</h2>
-          <p className='text-slate-400'>Sign up for a new account</p>
-        </div>
+          {/* HEADING TEXT */}
+          <div className='text-center mb-5'>
+            <MessageCircle className='w-7 h-7 sm:w-8 sm:h-8 md:w-12 md:h-12 mx-auto text-slate-400 md:mb-4 mb-2'/>
+            <h2 className='md:text-2xl sm:text-xl text-lg font-bold text-slate-200 md:mb-1 '>Create Account</h2>
+            <p className='text-sm sm:text-base text-slate-400'>Sign up for a new account</p>
+          </div>
 
-        {/* FORM */}
-          <form onSubmit={handleSubmit} className="md:space-y-3 space-y-2">
+          {/* FORM */}
+            <form onSubmit={handleSubmit} className="space-y-3">
 
-            {/* FULL NAME */}
-            <div>
+              {/* FULL NAME */}
+              <div>
               <label className="auth-input-label">Full Name</label>
               <div className='relative'>
                 <User className="auth-input-icon" />
@@ -51,10 +51,10 @@ export default function SignUpPage() {
                   placeholder="John Doe"
                 />
               </div>
-            </div>
+              </div>
 
-            {/* EMAIL INPUT */}
-            <div>
+              {/* EMAIL INPUT */}
+              <div>
               <label className="auth-input-label">Email</label>
               <div className='relative'>
                 <Mail className="auth-input-icon" />
@@ -66,10 +66,10 @@ export default function SignUpPage() {
                   placeholder="johndoe@gmail.com"
                 />
               </div>
-            </div>
+              </div>
 
-            {/* PASSWORD INPUT */}
-            <div>
+              {/* PASSWORD INPUT */}
+              <div>
               <label className="auth-input-label">Password</label>
                 <div className="relative">
                   <Lock className="auth-input-icon" />
@@ -82,25 +82,25 @@ export default function SignUpPage() {
                     placeholder="Enter your password"
                   />
                 </div>
-            </div>
+              </div>
 
-            {/* SUBMIT BUTTON */}
-            <button className="auth-btn " type="submit" disabled={isSigningUp}>
+              {/* SUBMIT BUTTON */}
+              <button className="auth-btn " type="submit" disabled={isSigningUp}>
                 {isSigningUp ? (
                   <Loader className="size-5 animate-spin mx-auto" />
                 ) : (
                   "Create Account"
                 )}
-            </button>
+              </button>
 
-            <div className="md:mt-4 mt-2 text-center">
+              <div className="md:mt-4 mt-2 text-center">
               <Link to="/login" className="auth-link">
                 Already have an account? Login
               </Link>
-            </div>
+              </div>
 
           </form>
-          </div>
+        </div>
 
           {/* FORM ILLUSTRATION - RIGHT SIDE */}
           <div className="hidden md:w-1/2 md:flex items-center justify-center p-6 bg-gradient-to-bl from-slate-800/20 to-transparent">

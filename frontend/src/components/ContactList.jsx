@@ -18,16 +18,16 @@ export default function ContactList() {
       {allContacts.map((contact) => (
         <div
           key={contact._id}
-          className="bg-cyan-500/10 p-3 rounded-lg cursor-pointer hover:bg-cyan-500/20 transition-colors"
+          className="bg-cyan-500/10 p-2 sm:p-3 rounded-lg cursor-pointer hover:bg-cyan-500/20 transition-colors"
           onClick={() => setSelectedUser(contact)}
         >
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <div className={`avatar avatar-${onlineUsers.includes(contact._id) ? "online" : "offline"}`}>
-              <div className="size-9 rounded-full">
+              <div className="size-7 sm:size-9 rounded-full">
                 <img src={contact.profilePic || "/avatar.png"} alt={contact.fullName} />
               </div>
             </div>
-            <h4 className="text-slate-200 font-medium text-sm truncate">{contact.fullName}</h4>
+            <h4 className="text-slate-200 font-medium text-[12px] sm:text-sm truncate">{contact.fullName}</h4>
           </div>
         </div>
       ))}

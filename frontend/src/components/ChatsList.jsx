@@ -21,16 +21,16 @@ export default function ChatsList() {
       {chatContacts.map((chat) => (
         <div
           key={chat._id}
-          className="bg-cyan-500/10 p-3 rounded-lg cursor-pointer hover:bg-cyan-500/20 transition-colors"
+          className="bg-cyan-500/10 p-2 sm:p-3 rounded-lg cursor-pointer hover:bg-cyan-500/20 transition-colors"
           onClick={() => setSelectedUser(chat)}
         >
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <div className={`avatar avatar-${onlineUsers.includes(chat._id) ? "online" : "offline"}`}>
-              <div className="size-9 rounded-full">
+              <div className="size-7 sm:size-9 rounded-full">
                 <img src={chat.profilePic || "/avatar.png"} alt={chat.fullName} />
               </div>
             </div>
-            <h4 className="text-slate-200 font-medium text-sm truncate mb-2">{chat.fullName}</h4>
+            <h4 className="text-slate-200 font-medium text-[12px] sm:text-sm truncate mb-1 sm:mb-2">{chat.fullName}</h4>
             {/* <p className="text-slate-400 text-xs truncate">{chat.lastMessage}</p> */}
           </div>
         </div>
