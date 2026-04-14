@@ -7,9 +7,9 @@ export default function ContactList() {
     const {getAllContacts, allContacts, isUsersLoading, setSelectedUser} = useChatStore();
     const { onlineUsers } = useAuthStore();
   
-    useEffect(() => {
-      getAllContacts();
-    }, [getAllContacts]);
+    // useEffect(() => {
+    //   getAllContacts();
+    // }, [getAllContacts]);
   
     if(isUsersLoading) return <UsersLoadingSkeleton />;
 

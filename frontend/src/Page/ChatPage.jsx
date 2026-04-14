@@ -9,7 +9,7 @@ import ChatContainer from '../components/ChatContainer';
 import NoConversationPlaceholder from '../components/NoConversationPlaceholder';
 
 export default function ChatPage() {
-  const {activeTab, selectedUser} = useChatStore();
+  const {activeTab, selectedUser, getAllContacts, subscribeToMessages, unsubscribeFromMessages} = useChatStore();
   const [showSidebar, setShowSidebar] = useState(true);
   
   useEffect(() => {
@@ -19,6 +19,12 @@ export default function ChatPage() {
       setShowSidebar(true);
     }
   }, [selectedUser]);
+
+  useEffect(() => {
+    getAllContacts()
+    subscribeToMessages();
+    return () => unsubscribeFromMessages();
+  }, [subscribeToMessages, unsubscribeFromMessages]);
 
   return (
     <div className='relative w-full max-w-6xl h-[90vh] sm:h-[80vh] min-h-100 sm:min-h-120'>
