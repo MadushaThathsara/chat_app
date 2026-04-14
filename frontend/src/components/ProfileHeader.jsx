@@ -68,9 +68,9 @@ export default function ProfileHeader() {
           </div>
 
           {/* user name and username */}
-          <div className="flex flex-col max-w-[100px] truncate">
-            <h2 className="text-slate-200 font-medium text-[12px] sm:text-sm ">{authUser.fullName}</h2>
-            <p className="text-slate-400 text-[10px] sm:text-xs">{authUser.email}</p>
+          <div className="flex flex-col max-w-[150px] ">
+            <h2 className="text-slate-200 font-medium text-[12px] sm:text-sm truncate">{authUser.fullName}</h2>
+            <p className="text-slate-400 text-[10px] sm:text-xs truncate">{authUser.email}</p>
           </div>
 
         </div>

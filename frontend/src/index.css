@@ -16,9 +16,31 @@
       --border-angle: 360deg;
     }
   }
-
   --animate-border: border-spin 3s linear infinite;
+
+  @keyframes custom-enter {
+    0% { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  @keyframes custom-leave {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(0.9); opacity: 0; }
+  }
+
+  --animate-enter: custom-enter 0.3s ease-out forwards;
+  --animate-leave: custom-leave 0.15s ease-in forwards;
+
  }
+
+ @layer utilities {
+  .animate-enter {
+    animation: var(--animate-enter);
+  }
+  .animate-leave {
+    animation: var(--animate-leave);
+  }
+}
 
 
 .auth-input-label {
@@ -44,3 +66,4 @@
 .auth-badge {
   @apply px-3 py-1 bg-slate-800/50 border border-slate-600/40 text-slate-300 text-xs rounded-full;
 }
+
