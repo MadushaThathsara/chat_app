@@ -56,6 +56,17 @@ export const useChatStore = create((set, get) => ({
         try {
             const res = await axiosInstance.get(`/message/get/${userId}`);
             set({messages: res.data});
+
+            await axiosInstance.put(`/message/read/${userId}`);
+
+            // Sidebar එකේ unreadCount එක reset කිරීම
+            const { chatContacts } = get();
+            const updatedContacts = chatContacts.map((contact) =>
+                contact._id === userId ? { ...contact, unreadCount: 0 } : contact
+            );
+            set({ chatContacts: updatedContacts });
+
+            
         } catch (error) {
             toast.error(error.response?.data?.message || "Failed to load messages");
         } finally {
@@ -89,6 +100,13 @@ export const useChatStore = create((set, get) => ({
                     msg._id === tempId ? res.data : msg
                 ) 
             });
+
+            // Sidebar last message update
+            const { chatContacts } = get();
+            const updatedContacts = chatContacts.map((contact) =>
+                contact._id === selectedUser._id ? { ...contact, lastMessage: res.data.text } : contact
+            );
+            set({ chatContacts: updatedContacts });
         } catch (error) {
             // Remove optimistic message on failure using the *latest* state
             set({ 
