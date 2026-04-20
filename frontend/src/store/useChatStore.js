@@ -141,9 +141,19 @@ export const useChatStore = create((set, get) => ({
                 const sender = allContacts.find((contact) => contact._id.toString() === newMessage.senderId.toString());
 
                 MessageToast ({
+                    senderId: sender._id,
                     senderName: sender?.fullName ?? "Someone",
                     senderPic: sender?.profilePic,
-                    message: newMessage.text
+                    message: newMessage.text,
+
+                    onNavigate: (id) => {
+                        const userToSelect = allContacts.find(u => u._id === id);
+                        if (userToSelect) {
+                            set({ activeTab: "chats" });
+                            get().setSelectedUser(userToSelect);
+                            get().getMessages(id);
+                        }
+                    }
                 }) 
 
 

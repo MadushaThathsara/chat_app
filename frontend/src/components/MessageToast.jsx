@@ -2,12 +2,16 @@ import React from 'react'
 import toast from 'react-hot-toast'
 import { XIcon } from "lucide-react";
 
-export const MessageToast = ({ senderName, senderPic, message }) => {
+export const MessageToast = ({ senderId, senderName, senderPic, message, onNavigate }) => {
     toast.custom((t) => (
         <div
+        onClick={() => {    
+                onNavigate(senderId); 
+                toast.dismiss(t.id); 
+            }}
         className={`${
             t.visible ? 'animate-enter' : 'animate-leave'
-        } max-w-xs sm:max-w-md w-full bg-slate-800 shadow-xl rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5 border border-slate-700`}
+        } max-w-xs sm:max-w-md w-full bg-slate-800 shadow-xl rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5 border border-slate-700 cursor-pointer hover:bg-slate-700/80 transition-all`}
         >
         <div className="flex-1 w-0 p-2 sm:p-4">
         <div className="flex items-start">  
@@ -26,7 +30,10 @@ export const MessageToast = ({ senderName, senderPic, message }) => {
         </div>
         <div className="flex ">
             <button
-            onClick={() => toast.dismiss(t.id)}
+            onClick={(e) => {
+                e.stopPropagation();
+                toast.dismiss(t.id)
+            }}
             className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-cyan-400 hover:text-cyan-300 focus:outline-none"
             >
                 <XIcon className="w-4 h-4" />
