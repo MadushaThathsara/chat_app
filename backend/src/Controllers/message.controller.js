@@ -17,37 +17,119 @@ export const getAllContacts = async (req, res) => {
     }
 }
 
+// export const getChatPartners = async (req, res) => {
+//     try{
+//         const loggedInUserId = req.user._id;
+
+//         const message = await Message.find({
+//             $or: [
+//                 {senderId: loggedInUserId},
+//                 {receiverId: loggedInUserId}
+//             ]
+//         }).sort({createdAt: -1});
+
+//         const seen = new Set();
+//         const chatPartnerIds = [];
+//         for (const msg of message) {
+//             const partnerId = msg.senderId.toString() === loggedInUserId.toString() 
+//                 ? msg.receiverId.toString() 
+//                 : msg.senderId.toString();
+//             if (!seen.has(partnerId)) {
+//                 seen.add(partnerId);
+//                 chatPartnerIds.push(partnerId);
+//             }
+//         }
+
+//         const chatPartners = await User.find({_id: {$in: chatPartnerIds}}).select("-password");
+//         res.status(200).json(chatPartners);
+
+//     }catch(error){
+//         console.error("Error in getChatPartners:", error);
+//         res.status(500).json({message: "Internal server error"});   
+//     }
+// }
+
 export const getChatPartners = async (req, res) => {
-    try{
+    try {
         const loggedInUserId = req.user._id;
 
-        const message = await Message.find({
-            $or: [
-                {senderId: loggedInUserId},
-                {receiverId: loggedInUserId}
-            ]
-        }).sort({createdAt: -1});
+        const chatPartners = await Message.aggregate([
+            {
+                $match: {
+                    $or: [
+                        { senderId: loggedInUserId },
+                        { receiverId: loggedInUserId }
+                    ]
+                }
+            },
 
-        const seen = new Set();
-        const chatPartnerIds = [];
-        for (const msg of message) {
-            const partnerId = msg.senderId.toString() === loggedInUserId.toString() 
-                ? msg.receiverId.toString() 
-                : msg.senderId.toString();
-            if (!seen.has(partnerId)) {
-                seen.add(partnerId);
-                chatPartnerIds.push(partnerId);
-            }
-        }
+            { $sort: { createdAt: -1 } },
 
-        const chatPartners = await User.find({_id: {$in: chatPartnerIds}}).select("-password");
+            {
+                $addFields: {
+                    partnerId: {
+                        $cond: [
+                            { $eq: ["$senderId", loggedInUserId] },
+                            "$receiverId",
+                            "$senderId"
+                        ]
+                    }
+                }
+            },
+
+            {
+                $group: {
+                    _id: "$partnerId",
+                    lastMessage: { $first: "$text" },
+                    lastMessageTime: { $first: "$createdAt" },
+
+                    unreadCount: {
+                        $sum: {
+                            $cond: [
+                                { 
+                                    $and: [
+                                        { $eq: ["$receiverId", loggedInUserId] },
+                                        { $eq: ["$isRead", false] }
+                                    ] 
+                                },
+                                1, 0
+                            ]
+                        }
+                    }
+                }
+            },
+
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "_id",
+                    foreignField: "_id",
+                    as: "userInfo"
+                }
+            },
+
+            { $unwind: "$userInfo" },
+   
+            {
+                $project: {
+                    _id: 1,
+                    fullName: "$userInfo.fullName",
+                    profilePic: "$userInfo.profilePic",
+                    lastMessage: 1,
+                    unreadCount: 1,
+                    lastMessageTime: 1
+                }
+            },
+
+            { $sort: { lastMessageTime: -1 } }
+        ]);
+
         res.status(200).json(chatPartners);
-
-    }catch(error){
+    } catch (error) {
         console.error("Error in getChatPartners:", error);
-        res.status(500).json({message: "Internal server error"});   
+        res.status(500).json({ message: "Internal server error" });
     }
-}
+};
 
 export const getMessages = async (req, res) => {
     try{
@@ -117,3 +199,20 @@ export const sendMessage = async (req, res) => {
         res.status(500).json({message: "Internal server error"});   
     } 
 }
+
+export const markMessagesAsRead = async (req, res) => {
+    try {
+        const { id: senderId } = req.params;
+        const loggedInUserId = req.user._id;
+
+        await Message.updateMany(
+            { senderId: senderId, receiverId: loggedInUserId, isRead: false },
+            { $set: { isRead: true } }
+        );
+
+        res.status(200).json({ message: "Messages marked as read" });
+    } catch (error) {
+        console.error("Error in markMessagesAsRead:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
